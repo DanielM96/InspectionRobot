@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inspection Robot</string>
+    <string name="btn_forward">Naprzód</string>
+    <string name="btn_backward">Wstecz</string>
+    <string name="btn_left">W lewo</string>
+    <string name="btn_right">W prawo</string>
+    <string name="btn_settings">Ustawienia</string>
+    <string name="socketNotNull">Socket nie jest pusty i nie może zostać użyty.</string>
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_message">Adres IP robota (np. 192.168.43.2)</string>
+    <string name="settings_cancel">Anuluj</string>
+    <string name="settings_defaultip">"Domyślny adres IP: "</string>
+    <string name="btn_camerasettings">Ustawienia kamery</string>
+    <string name="camerasettings_title">Wybierz rozdzielczość kamery</string>
+    <string name="camerasettings_previousquality">"Bieżąca jakość kamery: "</string>
+</resources>
