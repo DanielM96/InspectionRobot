@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-/*
+/**
 SplashScreen
 
 Klasa wywoływana przy uruchamianiu aplikacji. Jej zadaniem jest wyświetlenie ekranu powitalnego (splash screen),
@@ -26,13 +26,11 @@ public class SplashScreen extends AppCompatActivity {
         Intent (intencja) stanowi abstrakcyjny opis akcji, jaka ma zostać wykonana.
         Może to być np. uruchomienie nowej aktywności lub komunikacja z usługą w tle.
         Konstruktor jako pierwszy parametr przyjmuje kontekst, jako drugi - klasę.
-
-        Źródło: https://developer.android.com/reference/android/content/Intent
         */
         Intent intent = new Intent(this, MainActivity.class);
-        // Uruchomienie  nowej aktywności przy użyciu utworzonego obiektu intent.
+        // Uruchomienie nowej aktywności przy użyciu utworzonego obiektu intent
         startActivity(intent);
-        // Zakończenie bieżącej aktywności.
+        // Zakończenie bieżącej aktywności
         finish();
     }
 }
