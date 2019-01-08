@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * Klasa służąca do komunikacji za pośrednictwem protokołu HTTP.
      *
-     * Klasa dziedziczy po klasie ASyncTask, która pozwala na wykonywanie w tle krótkich operacji,
+     * Klasa dziedziczy po klasie AsyncTask, która pozwala na wykonywanie w tle krótkich operacji,
      * bez konieczności bezpośredniego operowania na wątkach (jest dla nich klasą pomocniczą).
      *
      * Parametry:
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 // Ustawienie metody żądania na GET
                 connection.setRequestMethod("GET");
-                // Nawiązaywanie połączenia
+                // Nawiązywanie połączenia
                 connection.connect();
                 // Tworzenie strumienia wejścia
                 InputStream inputStream = connection.getInputStream();
@@ -473,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 // Obsługa wyjątku IOException
                 // Wyjątek jest zwracany, gdy nie jest możliwa komunikacja (głównie brak sieci)
-                Log.e("ASyncTask", "NO NETWORK!");
+                Log.e("AsyncTask", "NO NETWORK!");
                 serverResponse = e.getMessage();
             }
 
