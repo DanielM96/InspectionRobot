@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 SplashScreen
 
 Klasa wywoływana przy uruchamianiu aplikacji. Jej zadaniem jest wyświetlenie ekranu powitalnego (splash screen),
-a następnie uruchomienie MainActivity, czyli głównej aktywnośc aplikacji.
+a następnie uruchomienie MainActivity, czyli głównej aktywności aplikacji.
 
 Klasa dziedziczy po klasie AppCompatActivity.
  */
