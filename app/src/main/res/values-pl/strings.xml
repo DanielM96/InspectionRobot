@@ -15,4 +15,6 @@
     <string name="camerasettings_title">Wybierz rozdzielczość kamery</string>
     <string name="camerasettings_previousquality">"Bieżąca rodzielczość kamery: "</string>
     <string name="camerasettings_newquality">"Nowa rozdzielczość kamery: "</string>
+    <string name="imageView">Podgląd z kamery</string>
+    <string name="imageView_streamStarted">"Rozpoczęto strumieniowanie z "</string>
 </resources>

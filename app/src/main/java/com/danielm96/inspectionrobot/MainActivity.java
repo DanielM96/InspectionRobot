@@ -1,7 +1,8 @@
 package com.danielm96.inspectionrobot;
 
 import android.content.DialogInterface;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -12,15 +13,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
@@ -86,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 connect.execute("CON");
                 Log.d("showSettings", "Sent command CON");
 
-                // Utworzenie obiektu klasy VideoView i jego uruchomienie po zmianie adresu IP
-                VideoView videoView;
-                videoView = findViewById(R.id.videoView);
-                startVideoView(videoView);
+                // Uruchomienie podglądu obrazu po zmianie adresu IP
+                startImageView((ImageView)findViewById(R.id.imageView));
             }
         });
 
@@ -189,21 +188,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Funkcja uruchamiająca podgląd wideo
-    private void startVideoView(VideoView view) {
-        // Adres, pod którym jest transmisja
-        String httpLiveUrl = address + "/" + messagePrefix;
+    private void startImageView(ImageView imageView) {
+        String httpLiveUrl = "http://" + address + "/" + messagePrefix;
 
-        // Ustawienie adresu
-        view.setVideoURI(Uri.parse(httpLiveUrl));
-        // Utworzenie obiektu klasy MediaController
-        MediaController mediaController = new MediaController(this);
-        // Ustawienie kontrolera
-        view.setMediaController(mediaController);
-        // Zażadanie fokusu na VideoView
-        view.requestFocus();
-        // Uruchomienie transmisji
-        view.start();
-        Log.d("startApp", "Started VideoView");
+        new GetImageTask(imageView).execute(httpLiveUrl);
+        Toast.makeText(MainActivity.this, getString(R.string.imageView_streamStarted) + address, Toast.LENGTH_SHORT).show();
     }
 
     // Funkcja uruchamiająca właściwą część aplikacji
@@ -396,12 +385,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Tworzenie obiektu klasy VideoView, który pozwoli na wyświetlenie obrazu z kamery
-        VideoView videoView;
-        videoView = findViewById(R.id.videoView);
+        // Tworzenie obiektu klasy ImageView, który pozwoli na wyświetlenie obrazu z kamery
+        ImageView imageView;
+        imageView = findViewById(R.id.imageView);
 
-        // Przygotowanie i uruchomienie podglądu
-        startVideoView(videoView);
+        // Uruchomienie podglądu obrazu
+        startImageView(imageView);
     }
 
     /**
@@ -420,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
      * Wywoływanie:
      * new ClientTask(ip_address).execute("String");
      */
-    public static class ClientTask extends AsyncTask<String, Void, String> {
+    private static class ClientTask extends AsyncTask<String, Void, String> {
         String server;
 
         // Konstruktor - jako parametr przyjmowany jest adres IP serwera
@@ -478,6 +467,50 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return serverResponse;
+        }
+    }
+
+    /**
+     * GetImageTask
+     *
+     * Klasa służąca do przechwytywania w tle obrazu z kamery.
+     */
+
+    private static class GetImageTask extends AsyncTask<String, Void, Bitmap> {
+        // Odwoływanie się do kontrolki ImageView za pomocą WeakReference - zapobiega wyciekowi pamięci
+        private WeakReference<ImageView> image;
+
+        GetImageTask(ImageView imageView) {
+            image = new WeakReference<>(imageView);
+        }
+
+        // Operacje wykonywane w tle
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            // Pobierz adres z parametrów
+            String imageUrl = params[0];
+            Bitmap getImage = null;
+
+            // Pobierz obraz
+            try {
+                InputStream input = new java.net.URL(imageUrl).openStream();
+                getImage = BitmapFactory.decodeStream(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("AsyncTask", "Image streaming error");
+            }
+
+            return getImage;
+        }
+
+        // Operacje wykonywane po zakończeniu działań w tle
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            ImageView resultImage = image.get();
+            if (image != null) {
+                // Ustawienie obrazu w kontrolce
+                resultImage.setImageBitmap(result);
+            }
         }
     }
 }

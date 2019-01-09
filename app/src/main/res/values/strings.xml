@@ -24,4 +24,6 @@
     <string name="camerasettings_quality8" translatable="false">1600x1200</string>
     <string name="camerasettings_previousquality">Current camera quality:</string>
     <string name="camerasettings_newquality">New camera quality:</string>
+    <string name="imageView">Camera preview</string>
+    <string name="imageView_streamStarted">Started streaming from</string>
 </resources>
