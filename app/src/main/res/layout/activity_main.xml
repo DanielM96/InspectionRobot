@@ -93,5 +93,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorBlack" />
+        app:srcCompat="@drawable/robot_waitforcam" />
 </android.support.constraint.ConstraintLayout>
