@@ -389,8 +389,9 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView;
         imageView = findViewById(R.id.imageView);
 
-        // Uruchomienie podglądu obrazu
-        startImageView(imageView);
+        // Wstawienie obrazu początkowego
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.robot_waitforcam);
+        imageView.setImageBitmap(bm);
     }
 
     /**
